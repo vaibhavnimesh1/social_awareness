@@ -54,7 +54,7 @@ const CauseListing = () => {
       <h1 className="text-center">Causes List</h1>
       <div className="row">
         {causes.map((cause) => (
-          <div key={cause.id} className="col-md-4 col-lg-4 col-12 mb-4  ">
+          <Link to="/causeDetails" key={cause.id} className="col-md-4 col-lg-4 col-12 mb-4  ">
             <div className="card">
               <img
                 src={cause.image}
@@ -87,7 +87,7 @@ const CauseListing = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

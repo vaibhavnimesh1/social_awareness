@@ -1,4 +1,5 @@
 import React from "react";
+import "./Header.css"
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -19,31 +20,51 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+        <div className="collapse navbar-collapse  " id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto  mb-2 mb-lg-0 ">
+            <li className="nav-item ">
               <Link className="nav-link active" aria-current="page" to="/">
                 Home
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item ">
+              <Link className="nav-link active" aria-current="page" to="/aboutus">
+                About Us
+              </Link>
+            </li>
+            <li className="nav-item ">
               <Link className="nav-link active" aria-current="page" to="/cause">
                 Causes
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item ">
+              <Link className="nav-link active" aria-current="page" to="/promotion">
+                Bussiness promotion
+              </Link>
+            </li>
+            <li className="nav-item ">
+              <Link className="nav-link active" aria-current="page" to="/contact">
+                ContactUs
+              </Link>
+            </li>
+            {/* <li className="nav-item ">
               <Link className="nav-link active" aria-current="page" to="/createcauseform">
                 Causes Form
               </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
-                About Us
-              </Link>
-            </li>
-            
+            </li> */}
+            <Link to="/login" className=" d-flex  justify-content-center   align-items-center ">
+            <p className=" d-flex  justify-content-center   align-items-center mt-1  ">Existing User?</p>
+  
+<button className="btn btn-outline-success m-2 " type="submit">
+          Signin
+            </button>
+</Link>
+         {/* <Link to="/signup">  <button className="btn btn-outline-success" type="submit">
+          Signup
+            </button></Link>
+             */}
           </ul>
-          <form className="d-flex me-2" role="search">
+          {/* <form className="d-flex me-2" role="search">
             <input
               className="form-control me-2"
               type="search"
@@ -53,16 +74,8 @@ const Header = () => {
             <button className="btn btn-outline-success" type="submit">
               Search
             </button>
-          </form>
-<Link to="/login">
-  
-<button className="btn btn-outline-success me-2 " type="submit">
-          Login
-            </button>
-</Link>
-         <Link to="/signup">  <button className="btn btn-outline-success" type="submit">
-          Signup
-            </button></Link>
+          </form> */}
+
         </div>
       </div>
     </nav>

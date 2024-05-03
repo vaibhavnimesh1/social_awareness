@@ -6,10 +6,12 @@ import SignUp from "./pages/Authenticatin/SignUp/SignUp.jsx";
 import Login from "./pages/Authenticatin/SignIn/SignIn.jsx";
 import Home from "./pages/home/Home.jsx";
 import AboutUs from "./pages/AboutUs/AboutUs.jsx";
+import BusinessPromotion from "./pages/BussinessPromotion/BusinessPromotion.jsx";
 import ContactUs from "./pages/ContactUs/ContactUs.jsx";
 import CreateCauseForm from "./components/CreateCauseForm.jsx";
 
 import CauseDetailsPage from "./pages/CauseDetailsPage/CauseDetailsPage.jsx";
+import CauseListing from "./pages/home/Cause Listing/CauseListing.jsx";
 // import UserProfile from "./pages/UserProfile";
 // import CreateCauseForm from "./pages/CreateCauseForm";
 // import BusinessPromotionSection from "./pages/BusinessPromotionSection";
@@ -26,10 +28,12 @@ const App = () => {
             <Route path="/createcauseform" element={<CreateCauseForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/about" element={<AboutUs />} />
+            <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/promotion" element={<BusinessPromotion />} />
 
-            <Route path="/cause" element={<CauseDetailsPage />} />
+            <Route path="/causeDetails" element={<CauseDetailsPage />} />
+            <Route path="/cause" element={<CauseListing />} />
             {/* <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/create-cause" element={<CreateCauseForm />} />
             <Route

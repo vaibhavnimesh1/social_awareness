@@ -4,9 +4,29 @@ import { Link } from "react-router-dom";
 
 const SignIn = () => {
   return (
-    <div className="container my-5">
-      <div className="card p-4 mx-auto" style={{ maxWidth: "400px" }}>
-        <h2 className="text-center mb-4">Login Form</h2>
+    <div className="container py-5">
+    <div className="row ">
+
+    <div className=" col-12 col-lg-6 d-flex justify-content-center  align-items-center  flex-column  ">
+          <h3 className=" text-start  w-100 "> Page</h3>
+
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+
+    <div className="col-6 ">
+
+    <div className="card p-4 mx-auto" style={{ maxWidth: "400px" }}>
+        <h2 className="text-center mb-4">Signin </h2>
 
         <form>
           <div className="mb-3">
@@ -38,6 +58,9 @@ const SignIn = () => {
           </div>
         </form>
       </div>
+    </div>
+     
+    </div>
     </div>
   );
 };

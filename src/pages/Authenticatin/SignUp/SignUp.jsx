@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => {
   return (
-    <div className="container my-5 ">
+    <div className="container py-5 ">
       <div className="card p-4 mx-auto" style={{ maxWidth: "400px" }}>
-        <h2 className="text-center mb-4">Signup Form</h2>
+        <h2 className="text-center mb-4">Signup </h2>
 
         <form>
           <div className="mb-3">
