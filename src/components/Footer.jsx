@@ -10,13 +10,13 @@ const Footer = () => {
             <h5>About Us</h5>
             <ul className="list-unstyled  ">
               <li>
-                <Link to="/About">Our Story</Link>
+                <Link to="/aboutus">Our Story</Link>
               </li>
               <li>
-                <Link to="/About">Mission & Vision</Link>
+                <Link to="/aboutus">Mission & Vision</Link>
               </li>
               <li>
-                <Link to="/About">Team</Link>
+                <Link to="/aboutus">Team</Link>
               </li>
             </ul>
           </div>

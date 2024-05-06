@@ -1,12 +1,13 @@
 import React from "react";
-import "./Header.css"
+import "./Header.css";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const sucess = false;
   return (
-    <nav className="navbar navbar-expand-lg bg-body-secondary " >
+    <nav className="navbar navbar-expand-lg bg-body-secondary ">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand" >
+        <Link to="/" className="navbar-brand">
           LOGO
         </Link>
         <button
@@ -28,7 +29,11 @@ const Header = () => {
               </Link>
             </li>
             <li className="nav-item ">
-              <Link className="nav-link active" aria-current="page" to="/aboutus">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/aboutus"
+              >
                 About Us
               </Link>
             </li>
@@ -38,44 +43,49 @@ const Header = () => {
               </Link>
             </li>
             <li className="nav-item ">
-              <Link className="nav-link active" aria-current="page" to="/promotion">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/promotion"
+              >
                 Bussiness promotion
               </Link>
             </li>
             <li className="nav-item ">
-              <Link className="nav-link active" aria-current="page" to="/contact">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/contact"
+              >
                 ContactUs
               </Link>
             </li>
-            {/* <li className="nav-item ">
-              <Link className="nav-link active" aria-current="page" to="/createcauseform">
-                Causes Form
-              </Link>
-            </li> */}
-            <Link to="/login" className=" d-flex  justify-content-center   align-items-center ">
-            <p className=" d-flex  justify-content-center   align-items-center mt-1  ">Existing User?</p>
-  
-<button className="btn btn-outline-success m-2 " type="submit">
-          Signin
-            </button>
-</Link>
-         {/* <Link to="/signup">  <button className="btn btn-outline-success" type="submit">
-          Signup
-            </button></Link>
-             */}
-          </ul>
-          {/* <form className="d-flex me-2" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form> */}
 
+            <Link
+              to="/login"
+              className=" d-flex  justify-content-center   align-items-center "
+            >
+              <p className=" d-flex  justify-content-center   align-items-center mt-1  ">
+                Existing User?
+              </p>
+
+              <button className="btn btn-outline-success m-2 " type="submit">
+                Signin
+              </button>
+            </Link>
+
+            {sucess == true && (
+              <li className="nav-item ">
+                <Link
+                  className="nav-link active fs-3 "
+                  aria-current="page"
+                  to="/profile"
+                >
+                  <i className="fa-solid fa-user"></i>
+                </Link>
+              </li>
+            )}
+          </ul>
         </div>
       </div>
     </nav>

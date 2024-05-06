@@ -11,12 +11,11 @@ import ContactUs from "./pages/ContactUs/ContactUs.jsx";
 import CreateCauseForm from "./components/CreateCauseForm.jsx";
 
 import CauseDetailsPage from "./pages/CauseDetailsPage/CauseDetailsPage.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
 import CauseListing from "./pages/home/Cause Listing/CauseListing.jsx";
-// import UserProfile from "./pages/UserProfile";
-// import CreateCauseForm from "./pages/CreateCauseForm";
-// import BusinessPromotionSection from "./pages/BusinessPromotionSection";
+import AdminDashboard from "./pages/Admin Dashboard/AdminDashboard.jsx";
 
-const App = () => {
+const App =  () => {
   return (
     <Router>
       <div>
@@ -34,12 +33,8 @@ const App = () => {
 
             <Route path="/causeDetails" element={<CauseDetailsPage />} />
             <Route path="/cause" element={<CauseListing />} />
-            {/* <Route path="/user-profile" element={<UserProfile />} />
-            <Route path="/create-cause" element={<CreateCauseForm />} />
-            <Route
-              path="/business-promotion"
-              element={<BusinessPromotionSection />} */}
-            />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/admin/*" element={<AdminDashboard />} />
           </Routes>
         </div>
         <Footer />
