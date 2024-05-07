@@ -3,6 +3,12 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+
+  const isAuthenticated = () => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    const token = userData ? userData.token : null;
+    return !!token;
+  };
   const sucess = false;
   return (
     <nav className="navbar navbar-expand-lg bg-body-secondary ">
@@ -61,7 +67,7 @@ const Header = () => {
               </Link>
             </li>
 
-            <Link
+           {!isAuthenticated() &&  <Link
               to="/login"
               className=" d-flex  justify-content-center   align-items-center "
             >
@@ -72,9 +78,9 @@ const Header = () => {
               <button className="btn btn-outline-success m-2 " type="submit">
                 Signin
               </button>
-            </Link>
+            </Link>}
 
-            {sucess == true && (
+            {isAuthenticated()  && (
               <li className="nav-item ">
                 <Link
                   className="nav-link active fs-3 "

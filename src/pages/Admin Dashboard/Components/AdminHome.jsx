@@ -5,7 +5,8 @@ import Nav from "./Nav.jsx";
 const AdminHome = ({ settoggle, toggle }) => {
   return (
     <div>
-      <Nav settoggle={settoggle} toggle={toggle} />
+      {/* <Nav settoggle={settoggle} toggle={toggle} /> */}
+      adagfac
     </div>
   );
 };

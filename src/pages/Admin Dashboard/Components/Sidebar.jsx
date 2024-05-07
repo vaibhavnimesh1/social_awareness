@@ -17,29 +17,29 @@ const Sidebar = () => {
           to="/admin"
           className="list-group-item list-group-item-action py-2"
         >
-          <i className="bi bi-house fs-5 me-2"></i>
+          <i className=" fa fa-light-home"></i>
           <span>Home</span>
         </Link>
         <Link
-          to="/create-user"
+          to="/admin/create-promotion"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-house fs-5 me-2"></i>
-          <span>Create</span>
+          <span>Create Promotions</span>
         </Link>
         <Link
-          to="/customer"
+          to="/admin/create-business"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-people fs-5 me-2"></i>
-          <span>Customer</span>
+          <span>Create Business</span>
         </Link>
         <Link
           to="/logout"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-house fs-5 me-2"></i>
-          <span>Logout</span>
+          <span></span>
         </Link>
       </div>
     </div>

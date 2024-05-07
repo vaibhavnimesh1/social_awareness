@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer.jsx";
 import SignUp from "./pages/Authenticatin/SignUp/SignUp.jsx";
@@ -9,13 +14,14 @@ import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import BusinessPromotion from "./pages/BussinessPromotion/BusinessPromotion.jsx";
 import ContactUs from "./pages/ContactUs/ContactUs.jsx";
 import CreateCauseForm from "./components/CreateCauseForm.jsx";
-
 import CauseDetailsPage from "./pages/CauseDetailsPage/CauseDetailsPage.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import CauseListing from "./pages/home/Cause Listing/CauseListing.jsx";
 import AdminDashboard from "./pages/Admin Dashboard/AdminDashboard.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import NotFound from "./components/NotFound.jsx";
 
-const App =  () => {
+const App = () => {
   return (
     <Router>
       <div>
@@ -30,11 +36,15 @@ const App =  () => {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/promotion" element={<BusinessPromotion />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
 
             <Route path="/causeDetails" element={<CauseDetailsPage />} />
             <Route path="/cause" element={<CauseListing />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/admin/*" element={<AdminDashboard />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />

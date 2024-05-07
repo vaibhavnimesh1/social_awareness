@@ -4,31 +4,60 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignIn = () => {
-  const BASE_URL = "http://127.0.0.1:4016";
-  const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const BASE_URL = "http://192.168.29.39:4016";
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.password || !formData.username) {
+      alert("All fields are required!!!");
+      return;
+    }
     setLoading(true);
     try {
-      const response = await axios.post(
-        `${BASE_URL}/login`,
-        `username=${username}&password=${password}`
-      );
-  
-      console.log(response);
-  
-      if (response.status === 200) {
-        navigate("/profile");
-      } else {
+      const response = await axios.post(`${BASE_URL}/login`, formData);
+      console.log("response :", response);
+      if (response?.data?.success === false) {
         alert("Wrong credentials");
+        return;
       }
+      if (!response?.data?.success) {
+        alert("Wrong credentials or user not found");
+        return;
+      } else {
+        console.log("ROLE:", response?.data?.data?.doc?.role);
+        if (response?.data?.data?.doc?.role === "user") {
+          alert(response?.data?.message);
+          navigate("/profile");
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(response?.data?.data)
+          );
+        }
+        if (response?.data?.data?.doc?.role === "admin") {
+          alert(response?.data?.message);
+          navigate("/admin");
+          localStorage.setItem(
+            "adminData",
+            JSON.stringify(response?.data?.data)
+          );
+        }
+      }
+      // if (response?.data?.data?.doc?.role === "admin") {
+      //   navigate("/admin");
+      // }
     } catch (error) {
       console.error("Error ", error);
-      alert("Failed to login");
+      // alert("Failed to login");
     } finally {
       setLoading(false);
     }
@@ -38,7 +67,7 @@ const SignIn = () => {
     <div className="container py-5">
       <div className="row ">
         <div className=" col-12 col-lg-6 d-flex justify-content-center  align-items-center  flex-column  ">
-          <h3 className=" text-start  w-100 "> Login</h3>
+          <h3 className=" text-start  w-100 "> Signin</h3>
 
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -63,17 +92,17 @@ const SignIn = () => {
                   type="text"
                   className="form-control"
                   placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  name="username"
+                  onChange={handleChange}
                 />
               </div>
               <div className="mb-3">
                 <input
+                  name="password"
                   type="password"
                   className="form-control"
                   placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleChange}
                 />
               </div>
 

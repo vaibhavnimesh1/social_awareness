@@ -7,36 +7,45 @@ const SignUp = () => {
   const BASE_URL = "http://192.168.29.39:4016";
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    name: " ",
-    email: " ",
-    password: " ",
-    username: " ",
+    name: "",
+    email: "",
+    password: "",
+    username: "",
   });
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.username
+    ) {
+      alert("All fields are required!!!");
+      return;
+    }
     setSubmitting(true);
     try {
-      const response = await axios.post(`${BASE_URL}/register`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(response);
+      const response = await axios.post(`${BASE_URL}/register`, formData);
+      console.log(response?.data);
 
-      if (response.status === 200) {
-        // navigate("/profile");
-        alert("Registered successfully!");
-        // if (response.data.role === "user") {
-        // }
-      } else {
-        alert("Failed to register");
+      const { data } = response;
+      if (data?.success === false) {
+        alert(data?.message);
+        return;
+      }else{
+
+        alert(data?.message)
+        navigate("/profile")
       }
     } catch (error) {
       console.error("Error ", error);
+      console.log(error);
+      alert(" Please try again later.");
     } finally {
       setSubmitting(false);
     }
@@ -49,10 +58,11 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <input
-              type="name"
+              type="text"
               name="name"
               className="form-control"
               placeholder="Name"
+              value={formData.name}
               onChange={handleChange}
             />
           </div>
@@ -62,15 +72,7 @@ const SignUp = () => {
               name="email"
               className="form-control"
               placeholder="Email Address"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Password"
+              value={formData.email}
               onChange={handleChange}
             />
           </div>
@@ -80,6 +82,17 @@ const SignUp = () => {
               name="username"
               className="form-control"
               placeholder="Username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="password"
+              name="password"
+              className="form-control"
+              placeholder="Password"
+              value={formData.password}
               onChange={handleChange}
             />
           </div>
