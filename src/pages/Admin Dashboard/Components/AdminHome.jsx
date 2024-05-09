@@ -6,7 +6,7 @@ const AdminHome = ({ settoggle, toggle }) => {
   return (
     <div>
       {/* <Nav settoggle={settoggle} toggle={toggle} /> */}
-      adagfac
+     Welcome to Admin Page
     </div>
   );
 };

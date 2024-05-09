@@ -1,76 +1,137 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const CauseDetailsPage = () => {
-  // Mock data for comments
-  const comments = [
-    { id: 1, user: "User1", comment: "Great cause! I fully support it." },
-    { id: 2, user: "User2", comment: "Keep up the good work!" },
-    { id: 3, user: "User3", comment: "I donated, hope it helps!" },
-  ];
+import axios from "axios";
+const CauseDetailsPage = ({ token }) => {
+  // console.log(token);
+  const [userId, setuserId] = useState("");
 
-  // Mock data for related causes
-  const relatedCauses = [
-    { id: 1, title: "Related Cause 1" },
-    { id: 2, title: "Related Cause 2" },
-    { id: 3, title: "Related Cause 3" },
-  ];
+  // console.log(userId);
+  const { id } = useParams();
+
+  const [causes, setCauses] = useState([]);
+  const BASE_URL = "http://137.184.199.153:4016";
+
+  // console.log(causes?.filter((item) => item._id === id));
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    // console.log(userData.doc._id);
+    if (!userData) return;
+
+    const userDataId = userData?.doc?._id || "";
+    // console.log(userDataId);
+    setuserId(userDataId);
+  }, []);
+
+  const fetchCauses = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/getCause`);
+      if (response?.data?.success) {
+        setCauses(response?.data?.doc);
+        // console.log("Get :", response);
+      }
+    } catch (error) {
+      console.error("Error fetching causes:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCauses();
+  }, []);
+
+  const filterData = causes.filter((item) => item._id === id);
+
+  const [data, setData] = useState({
+    amount: "",
+    userId: "",
+    causeId: "",
+  });
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleCreateCause = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("amount", data.amount);
+      formData.append("userId", userId);
+      formData.append("causeId", id);
+
+      const response = await axios.post(
+        `${BASE_URL}/createDonation`,
+        formData,
+        {
+          headers: {
+            "Content-Type": " application/x-www-form-urlencoded",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response?.data?.success) {
+        alert("Cause created");
+        // window.location.reload()
+      }
+    } catch (error) {
+      console.error("Error creating cause:", error);
+    }
+  };
+
+  const alertMessage = () => {
+    alert("Please login first!!!");
+  };
+
+  const isAuthenticated = () => {
+    if (localStorage.getItem("userData")) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    isAuthenticated();
+
+    console.log(isAuthenticated());
+  }, []);
 
   return (
     <div className=" container row">
       <div className=" p-5  col-8 d-flex flex-column  gap-2 ">
         <section className=" d-flex flex-column  gap-5 ">
-          <h2>Cause Details</h2>
-          <p>
-            Description: Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Nullam eget neque vel felis finibus tempus. Integer dapibus
-            purus nec sapien tempus, ac pharetra nisi ultrices.
-          </p>
+          <h2>{filterData[0]?.title}</h2>
+          <p>{filterData[0]?.description}</p>
           <p>Target Goal: $1000</p>
-          {/* Progress bar for current progress */}
-          {/* <div className="progress mb-3">
-            <div
-              className="progress-bar bg-success"
-              role="progressbar"
-              style={{ width: "50%" }}
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              50%
-            </div>
-          </div> */}
-          {/* Image or video related to the cause */}
-          {/* <div
-            className=" bg-black "
-            style={{ width: "300px", height: " 250px" }}
-          >
-            <img
-              style={{ width: "100%", height: " 100%" }}
-              src="https://images.pexels.com/photos/22805758/pexels-photo-22805758/free-photo-of-a-border-collie-sitting-in-front-of-a-tree.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-              alt="Cause"
-              className="img-fluid mb-3"
-            />
-          </div> */}
         </section>
 
-        {/* Call-to-Action */}
         <section className="mb-4 w-100  d-flex justify-content-evenly ">
-          <button className="btn border-black p-2  ">Donate for this Cause </button>
-          <button className="btn border-black p-2   ">Share</button>
-          <button className="btn border-black p-2  ">Participate in discussion</button>
-        </section>
+          {!isAuthenticated() ? (
+            <button
+              onClick={alertMessage}
+              className="btn btn-primary border-black p-2   "
+            >
+              {" "}
+              Donate for this Cause
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-primary border-black p-2   "
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Donate for this Cause
+            </button>
+          )}
 
-        {/* <section className="mb-4">
-          <h3>Comments</h3>
-          {comments.map((comment) => (
-            <div key={comment.id} className="card mb-2">
-              <div className="card-body">
-                <h5 className="card-title">{comment.user}</h5>
-                <p className="card-text">{comment.comment}</p>
-              </div>
-            </div>
-          ))}
-        </section> */}
+          <button className="btn border-black p-2   ">Share</button>
+          <button className="btn border-black p-2  ">
+            Participate in discussion
+          </button>
+        </section>
       </div>
       <div className=" col-4 mx-auto mt-5 ">
         <nav className="navbar w-100 mx-auto my-auto  ">
@@ -99,9 +160,46 @@ const CauseDetailsPage = () => {
           </ul>
         </nav>
       </div>
+
+      {/* <!-- Modal --> */}
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
+              <form onSubmit={handleCreateCause}>
+                <div className="mb-3">
+                  <label htmlFor="title" className="form-label">
+                    Amount
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    name="amount"
+                    value={data.amount}
+                    onChange={handleChange}
+                    required
+                    placeholder="Amount"
+                  />
+                </div>
+
+                <button type="submit" className="btn btn-success w-100   ">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- Modal --> */}
     </div>
   );
 };
 
 export default CauseDetailsPage;
-

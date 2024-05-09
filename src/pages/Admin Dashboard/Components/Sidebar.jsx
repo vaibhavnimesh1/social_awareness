@@ -13,26 +13,48 @@ const Sidebar = () => {
       <hr className="text-dark" />
 
       <div className="list-group list-group-flush">
+       
         <Link
-          to="/admin"
+          to="/admin/category"
           className="list-group-item list-group-item-action py-2"
         >
-          <i className=" fa fa-light-home"></i>
-          <span>Home</span>
+          <i className="bi bi-house fs-5 me-2"></i>
+          <span> Category</span>
+        </Link>
+        <Link
+          to="/admin/cause"
+          className="list-group-item list-group-item-action py-2"
+        >
+          <i className="bi bi-house fs-5 me-2"></i>
+          <span> Cause</span>
         </Link>
         <Link
           to="/admin/create-promotion"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-house fs-5 me-2"></i>
-          <span>Create Promotions</span>
+          <span>Promotions</span>
         </Link>
         <Link
           to="/admin/create-business"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-people fs-5 me-2"></i>
-          <span>Create Business</span>
+          <span> Business</span>
+        </Link>
+        <Link
+          to="/admin/create-alignment"
+          className="list-group-item list-group-item-action py-2"
+        >
+          <i className="bi bi-people fs-5 me-2"></i>
+          <span> Alignment</span>
+        </Link>
+        <Link
+          to="/admin/create-donation"
+          className="list-group-item list-group-item-action py-2"
+        >
+          <i className="bi bi-people fs-5 me-2"></i>
+          <span> Donation</span>
         </Link>
         <Link
           to="/logout"

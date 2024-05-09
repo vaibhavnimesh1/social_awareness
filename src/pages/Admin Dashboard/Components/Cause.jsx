@@ -1,65 +1,52 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const CreatePromotion = ({ token }) => {
-  const BASE_URL = "http://137.184.199.153:4016";
+const Category = ({ token }) => {
   const [toggle, setToggle] = useState(false);
+  const BASE_URL = "http://137.184.199.153:4016";
   const [causes, setCauses] = useState([]);
-  const [business, setbusiness] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [data, setData] = useState({
     title: "",
     description: "",
-    businessId: "",
+    image: null,
+    categoryId: "",
   });
-  const [selectedbusinessId, setSelectedbusinessId] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
-  const handleChange = (e) => {
-    if (e.target.name === "business") {
-      setSelectedbusinessId(e.target.value);
-    } else {
-      setData({ ...data, [e.target.name]: e.target.value });
-    }
-  };
-
-  const fetchPromotion = async () => {
+  const fetchCauses = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/getPromotion`, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(`${BASE_URL}/getCause`);
       if (response?.data?.success) {
         setCauses(response?.data?.doc);
-        // console.log("GET :" ,  response);
+        // console.log("Get :", response);
       }
     } catch (error) {
       console.error("Error fetching causes:", error);
     }
   };
 
-  const handleCreatePromotion = async (e) => {
+  // console.log(BASE_URL + "/" + causes[0].image);
+
+  const handleCreateCause = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("description", data.description);
-      formData.append("businessId", selectedbusinessId);
+      formData.append("categoryId", selectedCategoryId);
+      formData.append("image", data.image);
 
-      const response = await axios.post(
-        `${BASE_URL}/createPromotion`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/createCause`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response?.data?.success) {
-        alert("Promotion created");
-        fetchPromotion();
+        alert("Cause created");
+        fetchCauses();
         setToggle(false);
       }
     } catch (error) {
@@ -67,21 +54,31 @@ const CreatePromotion = ({ token }) => {
     }
   };
 
+  const handleChange = (e) => {
+    if (e.target.name === "image" && e.target.files.length > 0) {
+      setData({ ...data, image: e.target.files[0] });
+    } else if (e.target.name === "category") {
+      setSelectedCategoryId(e.target.value);
+    } else {
+      setData({ ...data, [e.target.name]: e.target.value });
+    }
+  };
+
   useEffect(() => {
-    fetchPromotion();
+    fetchCauses();
   }, [token]);
 
-  const fetchBusinessData = async () => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/getBusiness`, {
+      const response = await axios.get(`${BASE_URL}/getCategory`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response && response?.data?.success === true) {
-        setbusiness(response?.data?.doc);
-        // console.log(response);
+        setCategories(response?.data?.doc);
+        // console.log("Get :", response);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -89,7 +86,9 @@ const CreatePromotion = ({ token }) => {
   };
 
   useEffect(() => {
-    fetchBusinessData();
+    // console.log("fff", token);
+
+    fetchData();
   }, [token]);
 
   return (
@@ -103,7 +102,8 @@ const CreatePromotion = ({ token }) => {
               <th scope="col">No.</th>
               <th scope="col">Title</th>
               <th scope="col">Description</th>
-              <th scope="col">Business</th>
+              <th scope="col">Category</th>
+              <th scope="col">Image</th>
             </tr>
           </thead>
           <tbody>
@@ -112,7 +112,16 @@ const CreatePromotion = ({ token }) => {
                 <th scope="row">{index + 1}</th>
                 <td>{cause.title}</td>
                 <td>{cause.description}</td>
-                <td>{cause.businessId.name}</td>
+                <td>{cause.categoryId.name}</td>
+                <td>
+                  <img
+                    style={{ width: "50px" }}
+                    src={`${BASE_URL}${cause.image.startsWith("/") ? "" : "/"}${
+                      cause.image
+                    }`}
+                    alt="Images"
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -123,12 +132,12 @@ const CreatePromotion = ({ token }) => {
         onClick={() => setToggle(!toggle)}
         className="btn btn-success w-100"
       >
-        Create Promotion
+        Create Cause
       </button>
 
       {toggle && (
         <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
-          <form onSubmit={handleCreatePromotion}>
+          <form onSubmit={handleCreateCause}>
             <div className="mb-3">
               <label htmlFor="title" className="form-label">
                 Title
@@ -157,23 +166,34 @@ const CreatePromotion = ({ token }) => {
               />
             </div>
 
-            <div className="dropdown   border-1 border-black  mb-3   w-100 ">
+            <div className="dropdown   border-1 border-black   w-100 ">
               <select
                 className="form-select"
-                name="business"
+                name="category"
                 onChange={handleChange}
                 required
               >
-                <option value="">Select Business</option>
-                {business &&
-                  business?.map((category) => (
+                <option value="">Select Category</option>
+                {categories &&
+                  categories?.map((category) => (
                     <option key={category._id} value={category._id}>
                       {category.name}
                     </option>
                   ))}
               </select>
             </div>
-
+            <div className="mb-3 mt-3 ">
+              <label htmlFor="image" className="form-label">
+                Image
+              </label>
+              <input
+                type="file"
+                className="form-control"
+                name="image"
+                onChange={handleChange}
+                required
+              />
+            </div>
             <button type="submit" className="btn btn-success w-100   ">
               Submit
             </button>
@@ -184,4 +204,4 @@ const CreatePromotion = ({ token }) => {
   );
 };
 
-export default CreatePromotion;
+export default Category;

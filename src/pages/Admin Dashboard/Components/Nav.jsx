@@ -1,6 +1,22 @@
-import "./Nav.css"
+import { Link, useNavigate } from "react-router-dom";
+import "./Nav.css";
 
 const Nav = ({ settoggle, toggle }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+   
+
+    if (localStorage.getItem("adminData")) {
+      localStorage.removeItem("adminData");
+      window.location.reload("/login")
+
+      alert("")
+      navigate("/");
+    }
+    
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -11,24 +27,23 @@ const Nav = ({ settoggle, toggle }) => {
         <div className=" " id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item dropdown">
-              <a
+              <Link
                 className="nav-link dropdown-toggle"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Profile
-              </a>
-              <ul className="dropdown-menu" >
+              </Link>
+              <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Setting
-                  </a>
+                  <Link className="dropdown-item">Setting</Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" onClick={handleLogout}>
+                  {/* <Link className="dropdown-item" > */}
                     Logout
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>

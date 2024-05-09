@@ -1,40 +1,59 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const CreatePromotion = ({ token }) => {
+const Alignment = ({ token }) => {
   const BASE_URL = "http://137.184.199.153:4016";
   const [toggle, setToggle] = useState(false);
-  const [causes, setCauses] = useState([]);
+  const [alignment, setAlignment] = useState([]);
   const [business, setbusiness] = useState([]);
-  const [data, setData] = useState({
-    title: "",
-    description: "",
-    businessId: "",
-  });
+
   const [selectedbusinessId, setSelectedbusinessId] = useState("");
+  const [selectedCauseId, setSelectedCauseId] = useState("");
+  const [causes, setCauses] = useState([]);
+  //   console.log(causes);
 
   const handleChange = (e) => {
     if (e.target.name === "business") {
       setSelectedbusinessId(e.target.value);
-    } else {
-      setData({ ...data, [e.target.name]: e.target.value });
+    } else if (e.target.name === "cause") {
+      setSelectedCauseId(e.target.value);
     }
   };
 
-  const fetchPromotion = async () => {
+  const fetchCauses = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/getPromotion`, {
+      const response = await axios.get(`${BASE_URL}/getCause`);
+      if (response?.data?.success) {
+        setCauses(response?.data?.doc);
+        // console.log("Get :", response);
+      }
+    } catch (error) {
+      console.error("Error fetching causes:", error);
+    }
+  };
+
+  useEffect(() => {
+    // console.log("fff", token);
+
+    fetchCauses();
+  }, [token]);
+
+  // Get Alignment
+
+  const fetchAlignment = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/getAlignwith`, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
       if (response?.data?.success) {
-        setCauses(response?.data?.doc);
-        // console.log("GET :" ,  response);
+        setAlignment(response?.data?.doc);
+        // console.log("GET :", response);
       }
     } catch (error) {
-      console.error("Error fetching causes:", error);
+      console.error("Error fetching alignment:", error);
     }
   };
 
@@ -42,12 +61,12 @@ const CreatePromotion = ({ token }) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("description", data.description);
+
       formData.append("businessId", selectedbusinessId);
+      formData.append("causeId", selectedCauseId);
 
       const response = await axios.post(
-        `${BASE_URL}/createPromotion`,
+        `${BASE_URL}/createAlignwith`,
         formData,
         {
           headers: {
@@ -57,9 +76,11 @@ const CreatePromotion = ({ token }) => {
         }
       );
 
+      //   console.log(response);
+
       if (response?.data?.success) {
         alert("Promotion created");
-        fetchPromotion();
+        fetchAlignment();
         setToggle(false);
       }
     } catch (error) {
@@ -68,7 +89,7 @@ const CreatePromotion = ({ token }) => {
   };
 
   useEffect(() => {
-    fetchPromotion();
+    fetchAlignment();
   }, [token]);
 
   const fetchBusinessData = async () => {
@@ -94,25 +115,23 @@ const CreatePromotion = ({ token }) => {
 
   return (
     <div>
-      {!causes.length ? (
+      {!alignment.length ? (
         <p>No Cause Found</p>
       ) : (
         <table className="table table-bordered">
           <thead>
             <tr>
               <th scope="col">No.</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
               <th scope="col">Business</th>
+              <th scope="col">Cause</th>
             </tr>
           </thead>
           <tbody>
-            {causes.map((cause, index) => (
+            {alignment.map((cause, index) => (
               <tr key={cause._id}>
                 <th scope="row">{index + 1}</th>
-                <td>{cause.title}</td>
-                <td>{cause.description}</td>
                 <td>{cause.businessId.name}</td>
+                <td>{cause.causeId.title}</td>
               </tr>
             ))}
           </tbody>
@@ -123,40 +142,12 @@ const CreatePromotion = ({ token }) => {
         onClick={() => setToggle(!toggle)}
         className="btn btn-success w-100"
       >
-        Create Promotion
+        Create Alignwith
       </button>
 
       {toggle && (
         <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
           <form onSubmit={handleCreatePromotion}>
-            <div className="mb-3">
-              <label htmlFor="title" className="form-label">
-                Title
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="title"
-                value={data.title}
-                onChange={handleChange}
-                required
-                placeholder="Write title"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">
-                Description
-              </label>
-              <textarea
-                className="form-control"
-                name="description"
-                value={data.description}
-                onChange={handleChange}
-                required
-                placeholder="Write description"
-              />
-            </div>
-
             <div className="dropdown   border-1 border-black  mb-3   w-100 ">
               <select
                 className="form-select"
@@ -166,9 +157,25 @@ const CreatePromotion = ({ token }) => {
               >
                 <option value="">Select Business</option>
                 {business &&
-                  business?.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.name}
+                  business?.map((business) => (
+                    <option key={business._id} value={business._id}>
+                      {business.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="dropdown   border-1 border-black  mb-3   w-100 ">
+              <select
+                className="form-select"
+                name="cause"
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Cause</option>
+                {causes &&
+                  causes?.map((cause) => (
+                    <option key={cause._id} value={cause._id}>
+                      {cause.title}
                     </option>
                   ))}
               </select>
@@ -184,4 +191,4 @@ const CreatePromotion = ({ token }) => {
   );
 };
 
-export default CreatePromotion;
+export default Alignment;

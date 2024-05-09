@@ -1,10 +1,5 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer.jsx";
 import SignUp from "./pages/Authenticatin/SignUp/SignUp.jsx";
@@ -22,10 +17,42 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import NotFound from "./components/NotFound.jsx";
 
 const App = () => {
+  const [token, setToken] = useState(null);
+
+  const isAuthenticated = () => {
+    const userData = JSON.parse(localStorage.getItem("adminData"));
+    if (userData) {
+      const role = userData?.doc?.role;
+      if (role === "admin") {
+        return true;
+      } else {
+        return false;
+      }
+
+      // console.log(role);
+    }
+
+    if (!userData) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  // console.log(isAuthenticated());
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    const t = userData?.token;
+    setToken(t);
+  }, []);
   return (
     <Router>
       <div>
-        <Header />
+        {isAuthenticated() ? null : <Header />}
+        {/* {isAuthenticated() ? null : <Footer />} */}
 
         <div className=" bg-body-tertiary ">
           <Routes>
@@ -37,17 +64,21 @@ const App = () => {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/promotion" element={<BusinessPromotion />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<Profile token={token} />} />
             </Route>
             <Route path="/login" element={<Login />} />
 
-            <Route path="/causeDetails" element={<CauseDetailsPage />} />
-            <Route path="/cause" element={<CauseListing />} />
+            <Route
+              path="/causeDetails/:id"
+              element={<CauseDetailsPage token={token} />}
+            />
+            <Route path="/cause" element={<CauseListing token={token} />} />
             <Route path="/admin/*" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-        <Footer />
+        {isAuthenticated() ? null : <Footer />}
+        {/* <Footer /> */}
       </div>
     </Router>
   );

@@ -5,7 +5,7 @@ import axios from "axios";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const BASE_URL = "http://192.168.29.39:4016";
+  const BASE_URL = "http://137.184.199.153:4016";
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -25,7 +25,6 @@ const SignIn = () => {
     setLoading(true);
     try {
       const response = await axios.post(`${BASE_URL}/login`, formData);
-      console.log("response :", response);
       if (response?.data?.success === false) {
         alert("Wrong credentials");
         return;
@@ -34,16 +33,22 @@ const SignIn = () => {
         alert("Wrong credentials or user not found");
         return;
       } else {
-        console.log("ROLE:", response?.data?.data?.doc?.role);
+        // console.log("ROLE:", response?.data?.data?.doc?.role);
         if (response?.data?.data?.doc?.role === "user") {
           alert(response?.data?.message);
-          navigate("/profile");
+
           localStorage.setItem(
             "userData",
             JSON.stringify(response?.data?.data)
           );
+          navigate("/profile");
+          window.location.reload();
         }
-        if (response?.data?.data?.doc?.role === "admin") {
+        if (
+          response?.data?.data?.doc?.role === "admin" &&
+          response?.data?.data?.doc?.role !== null &&
+          response?.data?.data?.doc?.role !== undefined
+        ) {
           alert(response?.data?.message);
           navigate("/admin");
           localStorage.setItem(
