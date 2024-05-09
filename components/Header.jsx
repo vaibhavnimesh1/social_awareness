@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
   const isAuthenticated = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
-    const token = userData ? userData.token : null;
-    return !!token;
+
+    if (!userData) {
+      return false;
+    } else {
+      return true;
+    }
+
+    // if (localStorage.getItem("userData")) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   };
-  const sucess = false;
+  // console.log(isAuthenticated());
+
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-secondary ">
       <div className="container-fluid">
@@ -67,23 +81,25 @@ const Header = () => {
               </Link>
             </li>
 
-           {!isAuthenticated() &&  <Link
-              to="/login"
-              className=" d-flex  justify-content-center   align-items-center "
-            >
-              <p className=" d-flex  justify-content-center   align-items-center mt-1  ">
-                Existing User?
-              </p>
+            {!isAuthenticated() && (
+              <Link
+                to="/login"
+                className=" d-flex  justify-content-center   align-items-center "
+              >
+                <p className=" d-flex  justify-content-center   align-items-center mt-1  ">
+                  Existing User?
+                </p>
 
-              <button className="btn btn-outline-success m-2 " type="submit">
-                Signin
-              </button>
-            </Link>}
+                <button className="btn btn-outline-success m-2 " type="submit">
+                  Signin
+                </button>
+              </Link>
+            )}
 
-            {isAuthenticated()  && (
+            {isAuthenticated() && (
               <li className="nav-item ">
                 <Link
-                  className="nav-link active fs-3 "
+                  className="nav-link active fs-3 mx-4  "
                   aria-current="page"
                   to="/profile"
                 >
