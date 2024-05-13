@@ -33,8 +33,11 @@ const SignIn = () => {
         alert("Wrong credentials or user not found");
         return;
       } else {
-        // console.log("ROLE:", response?.data?.data?.doc?.role);
-        if (response?.data?.data?.doc?.role === "user") {
+        if (
+          response?.data?.data?.doc?.role === "user" &&
+          response?.data?.data?.doc?.role !== null &&
+          response?.data?.data?.doc?.role !== undefined
+        ) {
           alert(response?.data?.message);
 
           localStorage.setItem(
@@ -57,9 +60,6 @@ const SignIn = () => {
           );
         }
       }
-      // if (response?.data?.data?.doc?.role === "admin") {
-      //   navigate("/admin");
-      // }
     } catch (error) {
       console.error("Error ", error);
       // alert("Failed to login");
@@ -87,7 +87,7 @@ const SignIn = () => {
           </p>
         </div>
 
-        <div className="col-12  col-lg-6 col-md-6 ">
+        <div className="col-12  col-lg-6  ">
           <div className="card p-4 mx-auto" style={{ maxWidth: "400px" }}>
             <h2 className="text-center mb-4">Signin </h2>
 

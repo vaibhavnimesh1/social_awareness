@@ -15,11 +15,12 @@ import Nav from "./Components/Nav.jsx";
 const AdminDashboard = () => {
   const [toggle, settoggle] = useState(true);
   const [token, setToken] = useState(null);
-
+  // console.log(token);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("adminData"));
     const t = userData.token;
+    if (token == null && !token) return;
     setToken(t);
   }, []);
   return (

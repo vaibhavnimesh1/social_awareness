@@ -5,16 +5,13 @@ const Nav = ({ settoggle, toggle }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-   
-
     if (localStorage.getItem("adminData")) {
       localStorage.removeItem("adminData");
-      window.location.reload("/login")
 
-      alert("")
-      navigate("/");
+      // alert("");
+      navigate(-2);
+      window.location.reload();
     }
-    
   };
 
   return (
@@ -41,7 +38,7 @@ const Nav = ({ settoggle, toggle }) => {
                 </li>
                 <li>
                   <Link className="dropdown-item" onClick={handleLogout}>
-                  {/* <Link className="dropdown-item" > */}
+                    {/* <Link className="dropdown-item" > */}
                     Logout
                   </Link>
                 </li>

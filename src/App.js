@@ -20,10 +20,10 @@ const App = () => {
   const [token, setToken] = useState(null);
 
   const isAuthenticated = () => {
-    const userData = JSON.parse(localStorage.getItem("adminData"));
-    if (userData) {
-      const role = userData?.doc?.role;
-      if (role === "admin") {
+    const adminData = JSON.parse(localStorage.getItem("adminData"));
+    if (adminData) {
+      const role = adminData?.doc?.role;
+      if (role === "admin" && role !== "") {
         return true;
       } else {
         return false;
@@ -32,20 +32,28 @@ const App = () => {
       // console.log(role);
     }
 
-    if (!userData) {
-      return false;
-    } else {
-      return true;
-    }
+    // if (!adminData) {
+    //   return false;
+    // } else {
+    //   return true;
+    // }
   };
   // console.log(isAuthenticated());
   useEffect(() => {
+    console.log(isAuthenticated());
     isAuthenticated();
   }, []);
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    const t = userData?.token;
+    const adminData = JSON.parse(localStorage.getItem("adminData"));
+    const t = adminData?.token;
+    // console.log(t);
+    if (!t) {
+      // console.log("Token missing, please log in again.");
+      return;
+    }
+    // console.log(t);
+
     setToken(t);
   }, []);
   return (
@@ -61,8 +69,11 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/promotion" element={<BusinessPromotion />} />
+            <Route path="/contact" element={<ContactUs token={token} />} />
+            <Route
+              path="/promotion"
+              element={<BusinessPromotion token={token} />}
+            />
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile token={token} />} />
             </Route>

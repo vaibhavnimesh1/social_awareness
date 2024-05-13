@@ -14,7 +14,7 @@ const Profile = ({ token }) => {
 
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
-  // console.log(categories);
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) => {
     if (e.target.name === "image" && e.target.files.length > 0) {
@@ -26,7 +26,6 @@ const Profile = ({ token }) => {
     }
   };
 
-  console.log(token);
   const fetchData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/getCategory`, {
@@ -35,11 +34,9 @@ const Profile = ({ token }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
 
-      if (response && response?.data?.success === true) {
-        setCategories(response?.data?.doc);
-        // console.log("Get :", response);
+      if (response && response.data.success === true) {
+        setCategories(response.data.doc);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -66,8 +63,9 @@ const Profile = ({ token }) => {
         },
       });
 
-      if (response?.data?.success) {
+      if (response.data.success) {
         alert("Cause created");
+        setShowModal(false);
       }
     } catch (error) {
       console.error("Error creating cause:", error);
@@ -81,55 +79,54 @@ const Profile = ({ token }) => {
 
     window.location.reload();
   };
+
   return (
-    <div className=" container-fluid  row">
-      <div className=" p-5  col-12 d-flex flex-column  ">
-        <section className="mb-4 d-flex flex-column  gap-5  ">
-          <div className=" d-flex   justify-content-between ">
+    <div className="container-fluid row">
+      <div className="p-5 col-12 d-flex flex-column">
+        <section className="mb-4 d-flex flex-column gap-5">
+          <div className="d-flex justify-content-between">
             <h2>User Profile</h2>
             <div>
-              {" "}
               <button
                 type="button"
-                className="btn btn-primary mx-3    "
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                className="btn btn-primary mx-3"
+                onClick={() => setShowModal(true)}
               >
                 Create Cause
               </button>
-              <button className="btn btn-success   " onClick={handleLogout}>
+              <button className="btn btn-success" onClick={handleLogout}>
                 Logout
               </button>
             </div>
           </div>
 
-          <div className=" d-flex ">
-            <div className=" d-flex  justify-content-center   align-items-center gap-3 ">
+          <div className="d-flex">
+            <div className="d-flex justify-content-center align-items-center gap-3">
               <span>
-                <i className="fa-solid fa-address-book fs-3 "></i>
-              </span>{" "}
+                <i className="fa-solid fa-address-book fs-3"></i>
+              </span>
               <input type="file" name="" id="" />
             </div>
             <div>
               <span></span>{" "}
-              <input type="text  " placeholder=" Name" name="name" id="" />
+              <input type="text" placeholder=" Name" name="name" id="" />
             </div>
           </div>
 
-          <div className=" d-flex flex-wrap gap-5 justify-content-evenly ">
+          <div className="d-flex flex-wrap gap-5 justify-content-evenly">
             <div
-              className=" col-5 border-black d-flex flex-column  gap-2 p-2"
+              className="col-5 border-black d-flex flex-column gap-2 p-2"
               style={{ border: "1px solid black" }}
             >
-              <p className=" w-75 ">Contribution summary</p>
+              <p className="w-75">Contribution summary</p>
               <p>Followed causes</p>
             </div>
             <div
-              className=" col-5 border-black d-flex flex-column  gap-2 p-2"
+              className="col-5 border-black d-flex flex-column gap-2 p-2"
               style={{ border: "1px solid black" }}
             >
-              <div className=" d-flex gap-3 ">
-                <p className="  text-info text-decoration-underline ">
+              <div className="d-flex gap-3">
+                <p className="text-info text-decoration-underline">
                   Activity Feed
                 </p>
               </div>
@@ -139,24 +136,25 @@ const Profile = ({ token }) => {
               <Link>Timestamp causes supported</Link>
               <Link>Timestamp Activity Description</Link>
 
-              <p className="  text-info text-decoration-underline  text-end ">
+              <p className="text-info text-decoration-underline text-end">
                 Redeem Offer
               </p>
             </div>
           </div>
         </section>
 
-        {/* <!-- Modal --> */}
+        {/* Modal */}
         <div
-          className="modal fade"
+          className={`modal fade ${showModal ? "show" : ""}`}
           id="exampleModal"
           tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
+          style={{ display: showModal ? "block" : "none" }}
         >
           <div className="modal-dialog">
             <div className="modal-content">
-              <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
+              <div className="input mb-3 mt-3 border-1 border-black p-2">
                 <form onSubmit={handleCreateCause}>
                   <div className="mb-3">
                     <label htmlFor="title" className="form-label">
@@ -186,7 +184,7 @@ const Profile = ({ token }) => {
                     />
                   </div>
 
-                  <div className="dropdown   border-1 border-black   w-100 ">
+                  <div className="dropdown border-1 border-black w-100">
                     <select
                       className="form-select"
                       name="category"
@@ -195,14 +193,14 @@ const Profile = ({ token }) => {
                     >
                       <option value="">Select Category</option>
                       {categories &&
-                        categories?.map((category) => (
+                        categories.map((category) => (
                           <option key={category._id} value={category._id}>
                             {category.name}
                           </option>
                         ))}
                     </select>
                   </div>
-                  <div className="mb-3 mt-3 ">
+                  <div className="mb-3 mt-3">
                     <label htmlFor="image" className="form-label">
                       Image
                     </label>
@@ -214,16 +212,23 @@ const Profile = ({ token }) => {
                       required
                     />
                   </div>
-                  <button type="submit" className="btn btn-success w-100   ">
-                    Submit
-                  </button>
+                  <div >
+           <button type="submit" className="btn   btn-success w-50">
+                  Submit
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="btn  btn-danger w-50"
+                >
+                  Cancel
+                </button>
+           </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <!-- Modal --> */}
+        {/* Modal */}
       </div>
     </div>
   );

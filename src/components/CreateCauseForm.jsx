@@ -9,6 +9,7 @@ const CreateCauseForm = () => {
     duration: "",
     media: null,
   });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;

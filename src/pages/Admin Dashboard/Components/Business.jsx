@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Business = ({ token }) => {
-  // console.log("Token :", token);
+  console.log("Token :", token);
 
-  const BASE_URL = "http://137.184.199.153:4016";
+  const BASE_URL = "http://192.168.29.39:4016";
   const [toggle, setToggle] = useState(false);
   const [business, setBusiness] = useState([]);
   const [data, setData] = useState({

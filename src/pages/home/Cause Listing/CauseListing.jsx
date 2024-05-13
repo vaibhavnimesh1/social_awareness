@@ -25,8 +25,8 @@ const CauseListing = ({ token }) => {
   }, [token]);
 
   return (
-    <div className=" container-fluid  row">
-      <div className=" p-5  col-12 d-flex flex-column  ">
+    <div className=" container-fluid m-0 p-0   row">
+      <div className=" p-md-5 p-2  col-12 d-flex flex-column  ">
         <section className="mb-4 d-flex flex-column  gap-5  ">
           <h2>Cause List</h2>
 
