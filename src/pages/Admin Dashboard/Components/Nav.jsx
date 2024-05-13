@@ -9,8 +9,9 @@ const Nav = ({ settoggle, toggle }) => {
       localStorage.removeItem("adminData");
 
       // alert("");
-      navigate(-2);
-      window.location.reload();
+      // navigate(-2);
+      // window.location.reload();
+      window.location.href = "http://localhost:3000/login";
     }
   };
 

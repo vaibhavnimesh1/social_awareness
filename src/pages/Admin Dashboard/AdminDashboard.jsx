@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("adminData"));
     const t = userData.token;
-    if (token == null && !token) return;
+    if (token == null && !token) ;
     setToken(t);
   }, []);
   return (
@@ -36,23 +36,23 @@ const AdminDashboard = () => {
           <Nav settoggle={settoggle} toggle={toggle} />
           <Routes>
             <Route path="/" element={<AdminHome />} />
-            <Route path="/category" element={<Category token={token} />} />
-            <Route path="/cause" element={<Cause token={token} />} />
-            <Route path="/create-user" element={<CreateUser token={token} />} />
+            <Route path="category" element={<Category token={token} />} />
+            <Route path="cause" element={<Cause token={token} />} />
+            <Route path="create-user" element={<CreateUser token={token} />} />
             <Route
-              path="/create-business"
+              path="create-business"
               element={<CreateBusiness token={token} />}
             />
             <Route
-              path="/create-alignment"
+              path="create-alignment"
               element={<Alignment token={token} />}
             />
             <Route
-              path="/create-donation"
+              path="create-donation"
               element={<Donation token={token} />}
             />
             <Route
-              path="/create-promotion"
+              path="create-promotion"
               element={<CreatePromotion token={token} />}
             />
           </Routes>

@@ -15,42 +15,42 @@ const Sidebar = () => {
       <div className="list-group list-group-flush">
        
         <Link
-          to="/admin/category"
+          to="category"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-house fs-5 me-2"></i>
           <span> Category</span>
         </Link>
         <Link
-          to="/admin/cause"
+          to="cause"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-house fs-5 me-2"></i>
           <span> Cause</span>
         </Link>
         <Link
-          to="/admin/create-promotion"
+          to="create-promotion"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-house fs-5 me-2"></i>
           <span>Promotions</span>
         </Link>
         <Link
-          to="/admin/create-business"
+          to="create-business"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-people fs-5 me-2"></i>
           <span> Business</span>
         </Link>
         <Link
-          to="/admin/create-alignment"
+          to="create-alignment"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-people fs-5 me-2"></i>
           <span> Alignment</span>
         </Link>
         <Link
-          to="/admin/create-donation"
+          to="create-donation"
           className="list-group-item list-group-item-action py-2"
         >
           <i className="bi bi-people fs-5 me-2"></i>

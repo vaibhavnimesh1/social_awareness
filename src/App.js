@@ -32,11 +32,11 @@ const App = () => {
       // console.log(role);
     }
 
-    // if (!adminData) {
-    //   return false;
-    // } else {
-    //   return true;
-    // }
+    if (!adminData) {
+      return false;
+    } else {
+      return true;
+    }
   };
   // console.log(isAuthenticated());
   useEffect(() => {
