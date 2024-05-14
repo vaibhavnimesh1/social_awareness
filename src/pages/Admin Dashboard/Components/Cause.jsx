@@ -26,7 +26,6 @@ const Category = ({ token }) => {
     }
   };
 
-  // console.log(BASE_URL + "/" + causes[0].image);
 
   const handleCreateCause = async (e) => {
     e.preventDefault();
@@ -96,108 +95,110 @@ const Category = ({ token }) => {
       {!causes.length ? (
         <p>No Cause Found</p>
       ) : (
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Category</th>
-              <th scope="col">Image</th>
-            </tr>
-          </thead>
-          <tbody>
-            {causes.map((cause, index) => (
-              <tr key={cause._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{cause.title}</td>
-                <td>{cause.description}</td>
-                <td>{cause.categoryId.name}</td>
-                <td>
-                  <img
-                    style={{ width: "50px" }}
-                    src={`${BASE_URL}${cause.image.startsWith("/") ? "" : "/"}${
-                      cause.image
-                    }`}
-                    alt="Images"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      <button
-        onClick={() => setToggle(!toggle)}
-        className="btn btn-success w-100"
-      >
-        Create Cause
-      </button>
-
-      {toggle && (
-        <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
-          <form onSubmit={handleCreateCause}>
-            <div className="mb-3">
-              <label htmlFor="title" className="form-label">
-                Title
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="title"
-                value={data.title}
-                onChange={handleChange}
-                required
-                placeholder="Write title"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">
-                Description
-              </label>
-              <textarea
-                className="form-control"
-                name="description"
-                value={data.description}
-                onChange={handleChange}
-                required
-                placeholder="Write description"
-              />
-            </div>
-
-            <div className="dropdown   border-1 border-black   w-100 ">
-              <select
-                className="form-select"
-                name="category"
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Category</option>
-                {categories &&
-                  categories?.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div className="mb-3 mt-3 ">
-              <label htmlFor="image" className="form-label">
-                Image
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                name="image"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit" className="btn btn-success w-100   ">
-              Submit
+        <div>
+          <div className=" d-flex  justify-content-end  mb-3 ">
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="btn btn-success w-auto"
+            >
+              Create Cause
             </button>
-          </form>
+          </div>
+          {toggle && (
+            <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
+              <form onSubmit={handleCreateCause}>
+                <div className="mb-3">
+                  <label htmlFor="title" className="form-label">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="title"
+                    value={data.title}
+                    onChange={handleChange}
+                    required
+                    placeholder="Write title"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="description" className="form-label">
+                    Description
+                  </label>
+                  <textarea
+                    className="form-control"
+                    name="description"
+                    value={data.description}
+                    onChange={handleChange}
+                    required
+                    placeholder="Write description"
+                  />
+                </div>
+
+                <div className="dropdown   border-1 border-black   w-100 ">
+                  <select
+                    className="form-select"
+                    name="category"
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Category</option>
+                    {categories &&
+                      categories?.map((category) => (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div className="mb-3 mt-3 ">
+                  <label htmlFor="image" className="form-label">
+                    Image
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    name="image"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn btn-success w-100   ">
+                  Submit
+                </button>
+              </form>
+            </div>
+          )}
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Category</th>
+                <th scope="col">Image</th>
+              </tr>
+            </thead>
+            <tbody>
+              {causes.map((cause, index) => (
+                <tr key={cause._id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{cause.title}</td>
+                  <td>{cause.description}</td>
+                  <td>{cause.categoryId.name}</td>
+                  <td>
+                    <img
+                      style={{ width: "50px" }}
+                      src={`${BASE_URL}${
+                        cause.image.startsWith("/") ? "" : "/"
+                      }${cause.image}`}
+                      alt="Images"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>{" "}
         </div>
       )}
     </div>

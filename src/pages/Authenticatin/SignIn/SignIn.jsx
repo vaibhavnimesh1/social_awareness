@@ -44,7 +44,7 @@ const SignIn = () => {
             "userData",
             JSON.stringify(response?.data?.data)
           );
-          navigate("/profile");
+          navigate("/");
           window.location.reload();
         }
         if (
@@ -53,11 +53,13 @@ const SignIn = () => {
           response?.data?.data?.doc?.role !== undefined
         ) {
           alert(response?.data?.message);
+          
           navigate("/admin");
           localStorage.setItem(
             "adminData",
             JSON.stringify(response?.data?.data)
           );
+          window.location.reload()
         }
       }
     } catch (error) {

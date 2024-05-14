@@ -24,12 +24,14 @@ const App = () => {
     if (adminData) {
       const role = adminData?.doc?.role;
       if (role === "admin" && role !== "") {
+        // window.location.reload()
         return true;
       } else {
+        // window.location.reload()
         return false;
       }
-
       // console.log(role);
+
     }
 
     if (!adminData) {
@@ -38,10 +40,11 @@ const App = () => {
       return true;
     }
   };
+ 
   // console.log(isAuthenticated());
   useEffect(() => {
-    console.log(isAuthenticated());
-    isAuthenticated();
+    // console.log(isAuthenticated());
+    isAuthenticated()
   }, []);
 
   useEffect(() => {
@@ -62,7 +65,7 @@ const App = () => {
         {isAuthenticated() ? null : <Header />}
         {/* {isAuthenticated() ? null : <Footer />} */}
 
-        <div className=" bg-body-tertiary ">
+        <div className=" bg-body-tertiary d-flex  justify-content-center align-items-center  ">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/createcauseform" element={<CreateCauseForm />} />
@@ -84,7 +87,7 @@ const App = () => {
               element={<CauseDetailsPage token={token} />}
             />
             <Route path="/cause" element={<CauseListing token={token} />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
+            <Route path="/admin/*" element={<AdminDashboard  />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

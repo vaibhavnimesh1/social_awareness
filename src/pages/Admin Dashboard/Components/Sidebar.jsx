@@ -13,6 +13,13 @@ const Sidebar = () => {
       <hr className="text-dark" />
 
       <div className="list-group list-group-flush">
+      <Link
+          to="create-donation"
+          className="list-group-item list-group-item-action py-2"
+        >
+          <i className="bi bi-people fs-5 me-2"></i>
+          <span> Donation</span>
+        </Link>
        
         <Link
           to="category"
@@ -49,20 +56,8 @@ const Sidebar = () => {
           <i className="bi bi-people fs-5 me-2"></i>
           <span> Alignment</span>
         </Link>
-        <Link
-          to="create-donation"
-          className="list-group-item list-group-item-action py-2"
-        >
-          <i className="bi bi-people fs-5 me-2"></i>
-          <span> Donation</span>
-        </Link>
-        <Link
-          to="/logout"
-          className="list-group-item list-group-item-action py-2"
-        >
-          <i className="bi bi-house fs-5 me-2"></i>
-          <span></span>
-        </Link>
+     
+       
       </div>
     </div>
   );

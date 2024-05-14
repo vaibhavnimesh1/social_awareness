@@ -15,19 +15,23 @@ import Nav from "./Components/Nav.jsx";
 const AdminDashboard = () => {
   const [toggle, settoggle] = useState(true);
   const [token, setToken] = useState(null);
-  // console.log(token);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("adminData"));
+
     const t = userData.token;
-    if (token == null && !token) ;
+    const role = userData.doc.role;
+
+    console.log(role);
+    if (token == null && !token);
     setToken(t);
   }, []);
+
   return (
     <div className=" container-fluid  ">
-      <div className=" row w-100    ">
+      <div className=" row w-100">
         {toggle && (
-          <div className=" col-3      ">
+          <div className=" col-3">
             {" "}
             <Sidebar />
           </div>
@@ -35,7 +39,7 @@ const AdminDashboard = () => {
         <div className="h-100 col">
           <Nav settoggle={settoggle} toggle={toggle} />
           <Routes>
-            <Route path="/" element={<AdminHome />} />
+            <Route path="/" element={<AdminHome token={token} />} />
             <Route path="category" element={<Category token={token} />} />
             <Route path="cause" element={<Cause token={token} />} />
             <Route path="create-user" element={<CreateUser token={token} />} />

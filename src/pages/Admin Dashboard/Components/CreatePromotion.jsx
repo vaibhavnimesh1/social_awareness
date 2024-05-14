@@ -97,34 +97,16 @@ const CreatePromotion = ({ token }) => {
       {!causes.length ? (
         <p>No Cause Found</p>
       ) : (
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Business</th>
-            </tr>
-          </thead>
-          <tbody>
-            {causes.map((cause, index) => (
-              <tr key={cause._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{cause.title}</td>
-                <td>{cause.description}</td>
-                <td>{cause.businessId.name}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
 
-      <button
+        <div>
+        <div className=" d-flex  justify-content-end  mb-3 ">    <button
         onClick={() => setToggle(!toggle)}
-        className="btn btn-success w-100"
+        className="btn btn-success w-auto "
       >
         Create Promotion
-      </button>
+      </button></div>
+
+    
 
       {toggle && (
         <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
@@ -180,6 +162,30 @@ const CreatePromotion = ({ token }) => {
           </form>
         </div>
       )}
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Business</th>
+            </tr>
+          </thead>
+          <tbody>
+            {causes.map((cause, index) => (
+              <tr key={cause._id}>
+                <th scope="row">{index + 1}</th>
+                <td>{cause.title}</td>
+                <td>{cause.description}</td>
+                <td>{cause.businessId.name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+      )}
+
+     
     </div>
   );
 };

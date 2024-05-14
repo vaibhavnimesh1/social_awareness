@@ -1,77 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
-const Profile = ({ token }) => {
-  const navigate = useNavigate();
-  const BASE_URL = "http://137.184.199.153:4016";
-  const [data, setData] = useState({
-    title: "",
-    description: "",
-    image: null,
-    categoryId: "",
-  });
-
-  const [selectedCategoryId, setSelectedCategoryId] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-
-  const handleChange = (e) => {
-    if (e.target.name === "image" && e.target.files.length > 0) {
-      setData({ ...data, image: e.target.files[0] });
-    } else if (e.target.name === "category") {
-      setSelectedCategoryId(e.target.value);
-    } else {
-      setData({ ...data, [e.target.name]: e.target.value });
-    }
-  };
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}/getCategory`, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response && response.data.success === true) {
-        setCategories(response.data.doc);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [token]);
-
-  const handleCreateCause = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("description", data.description);
-      formData.append("categoryId", selectedCategoryId);
-      formData.append("image", data.image);
-
-      const response = await axios.post(`${BASE_URL}/createCause`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.data.success) {
-        alert("Cause created");
-        setShowModal(false);
-      }
-    } catch (error) {
-      console.error("Error creating cause:", error);
-    }
-  };
-
+const Profile = () => {
   const handleLogout = () => {
     if (localStorage.getItem("userData")) {
       localStorage.removeItem("userData");
@@ -87,13 +16,7 @@ const Profile = ({ token }) => {
           <div className="d-flex justify-content-between">
             <h2>User Profile</h2>
             <div>
-              <button
-                type="button"
-                className="btn btn-primary mx-3"
-                onClick={() => setShowModal(true)}
-              >
-                Create Cause
-              </button>
+          
               <button className="btn btn-success" onClick={handleLogout}>
                 Logout
               </button>
@@ -142,93 +65,6 @@ const Profile = ({ token }) => {
             </div>
           </div>
         </section>
-
-        {/* Modal */}
-        <div
-          className={`modal fade ${showModal ? "show" : ""}`}
-          id="exampleModal"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          style={{ display: showModal ? "block" : "none" }}
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="input mb-3 mt-3 border-1 border-black p-2">
-                <form onSubmit={handleCreateCause}>
-                  <div className="mb-3">
-                    <label htmlFor="title" className="form-label">
-                      Title
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="title"
-                      value={data.title}
-                      onChange={handleChange}
-                      required
-                      placeholder="Write title"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
-                      Description
-                    </label>
-                    <textarea
-                      className="form-control"
-                      name="description"
-                      value={data.description}
-                      onChange={handleChange}
-                      required
-                      placeholder="Write description"
-                    />
-                  </div>
-
-                  <div className="dropdown border-1 border-black w-100">
-                    <select
-                      className="form-select"
-                      name="category"
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="">Select Category</option>
-                      {categories &&
-                        categories.map((category) => (
-                          <option key={category._id} value={category._id}>
-                            {category.name}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <div className="mb-3 mt-3">
-                    <label htmlFor="image" className="form-label">
-                      Image
-                    </label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      name="image"
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div >
-           <button type="submit" className="btn   btn-success w-50">
-                  Submit
-                </button>
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="btn  btn-danger w-50"
-                >
-                  Cancel
-                </button>
-           </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Modal */}
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import "./CauseDetailsPage.css";
+
 const CauseDetailsPage = ({ token }) => {
   const { id } = useParams();
   const [userId, setUserId] = useState("");
@@ -32,6 +34,7 @@ const CauseDetailsPage = ({ token }) => {
   }, []);
 
   const filterData = causes.filter((item) => item._id === id);
+  // console.log(filterData[0].image);
   const [data, setData] = useState({
     amount: "",
     userId: "",
@@ -87,15 +90,15 @@ const CauseDetailsPage = ({ token }) => {
   }, []);
 
   return (
-    <div className="container row">
-      <div className="p-5 col-8 d-flex flex-column gap-2">
-        <section className="d-flex flex-column gap-5">
+    <div className="container m-0  p-0  mb-5  row">
+      <div className=" col-12 col-lg-6 d-flex flex-column gap-2">
+        <section className="d-flex  m-0  flex-column ">
           <h2>{filterData[0]?.title}</h2>
           <p>{filterData[0]?.description}</p>
           <p>Target Goal: $1000</p>
         </section>
 
-        <section className="mb-4 w-100 d-flex justify-content-evenly">
+        <section className="mb-md-4 w-100 d-flex justify-content-evenly">
           {!isAuthenticated() ? (
             <button onClick={alertMessage} className="btn  border-black p-2">
               Donate for this Cause
@@ -116,7 +119,9 @@ const CauseDetailsPage = ({ token }) => {
           </button>
         </section>
       </div>
-      <div className="col-4 mx-auto mt-5">{/* Sidebar content */}</div>
+      <div className="col-lg-6 mx-auto mt-5 details-img-box">
+        <img src={`${BASE_URL}/${filterData[0]?.image}`} alt="Image..." />
+      </div>
 
       {/* Modal */}
       <div
@@ -146,17 +151,17 @@ const CauseDetailsPage = ({ token }) => {
                   />
                 </div>
 
-           <div >
-           <button type="submit" className="btn   btn-success w-50">
-                  Submit
-                </button>
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="btn  btn-danger w-50"
-                >
-                  Cancel
-                </button>
-           </div>
+                <div>
+                  <button type="submit" className="btn   btn-success w-50">
+                    Submit
+                  </button>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="btn  btn-danger w-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </form>
             </div>
           </div>

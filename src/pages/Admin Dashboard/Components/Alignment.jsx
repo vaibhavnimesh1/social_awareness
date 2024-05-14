@@ -118,32 +118,15 @@ const Alignment = ({ token }) => {
       {!alignment.length ? (
         <p>No Cause Found</p>
       ) : (
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Business</th>
-              <th scope="col">Cause</th>
-            </tr>
-          </thead>
-          <tbody>
-            {alignment.map((cause, index) => (
-              <tr key={cause._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{cause.businessId.name}</td>
-                <td>{cause.causeId.title}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      <button
+    <div>
+       <div className=" d-flex  justify-content-end  mb-3 ">
+        <button
         onClick={() => setToggle(!toggle)}
-        className="btn btn-success w-100"
+        className="btn btn-success w-auto "
       >
         Create Alignwith
       </button>
+       </div>
 
       {toggle && (
         <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
@@ -187,6 +170,29 @@ const Alignment = ({ token }) => {
           </form>
         </div>
       )}
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Business</th>
+              <th scope="col">Cause</th>
+            </tr>
+          </thead>
+          <tbody>
+            {alignment.map((cause, index) => (
+              <tr key={cause._id}>
+                <th scope="row">{index + 1}</th>
+                <td>{cause.businessId.name}</td>
+                <td>{cause.causeId.title}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+
+      )}
+
+  
     </div>
   );
 };

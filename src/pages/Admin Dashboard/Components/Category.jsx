@@ -51,6 +51,8 @@ const Category = ({ token }) => {
 
         if (updatedRes?.data?.success) {
           setCategories(updatedRes?.data?.doc);
+          alert("Catergory created");
+          setToggle(false);
         }
       }
     } catch (error) {
@@ -63,52 +65,55 @@ const Category = ({ token }) => {
       {categories && categories?.length === 0 ? (
         <p>No Data Found</p>
       ) : (
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
+        <div>
+          <div className=" d-flex  justify-content-end  mb-3 ">
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="btn btn-success w-auto"
+            >
+              Create Category
+            </button>
+          </div>
+          {toggle && (
+            <div className="input-group mb-3 mt-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Category Name"
+                aria-label="Category Name"
+                aria-describedby="button-addon2"
+                value={newCategoryName}
+                onChange={(e) => setNewCategoryName(e.target.value)}
+              />
+              <button
+                className="btn btn-success "
+                type="button"
+                id="button-addon2"
+                onClick={handleCreateCategory}
+              >
+                Submit
+              </button>
+            </div>
+          )}
 
-              <th scope="col">Category Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((category, index) => (
-              <tr key={category._id}>
-                <th scope="row">{index + 1}</th>
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
 
-                <td>{category.name}</td>
+                <th scope="col">Category Name</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            </thead>
+            <tbody>
+              {categories.map((category, index) => (
+                <tr key={category._id}>
+                  <th scope="row">{index + 1}</th>
 
-      <button
-        onClick={() => setToggle(!toggle)}
-        className="btn btn-success w-100"
-      >
-        Create Category
-      </button>
-
-      {toggle && (
-        <div className="input-group mb-3 mt-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Category Name"
-            aria-label="Category Name"
-            aria-describedby="button-addon2"
-            value={newCategoryName}
-            onChange={(e) => setNewCategoryName(e.target.value)}
-          />
-          <button
-            className="btn btn-outline-secondary"
-            type="button"
-            id="button-addon2"
-            onClick={handleCreateCategory}
-          >
-            Submit
-          </button>
+                  <td>{category.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

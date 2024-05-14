@@ -8,13 +8,14 @@ const BusinessPromotion = ({ token }) => {
   const BASE_URL = "http://137.184.199.153:4016";
 
   const fetchBusiness = async () => {
-    // console.log(token);
+    console.log(token);
     try {
       const response = await axios.get(`${BASE_URL}/getBusiness`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("hey", response);
       if (response?.data?.success) {
         setpromotion(response?.data?.doc);
         console.log("Get :", response);
@@ -25,35 +26,25 @@ const BusinessPromotion = ({ token }) => {
   };
 
   useEffect(() => {
-    if (token) {
-      fetchBusiness();
-    }
+    fetchBusiness();
   }, [token]);
 
   return (
     <div className=" container-fluid justify-content-center  align-items-center m-0  p-0   row w-100 ">
       <div className=" p-1  col-12 d-flex flex-column  ">
-        <section className="mb-4 d-flex flex-column  gap-5  ">
-          <h2>Business List</h2>
+        {/* <section className="mb-4 d-flex flex-column  gap-5  "> */}
+        <h2>Business Lists</h2>
 
-          <div className=" w-100   d-flex flex-wrap gap-5 justify-content-evenly ">
-            {promotion &&
-              promotion.map((item) => (
-                <div key={item._id} className="w-100 card-body promotion-card">
-                  <h5 className="card-title mb-3 ">{item.name}</h5>
-                  <p className="card-text">
-                    {item.description}
-                    {/* "Card titles are used by adding .card-title to a tag. In the
-                    same way, links are added and placed next to each other by
-                    adding .card-link to an tag. Subtitles are used by adding a
-                    .card-subtitle to a tag. If the .card-title and the
-                    .card-subtitle items are placed in a .card-body item, the
-                    card title and subtitle are aligned nicely." */}
-                  </p>
-                </div>
-              ))}
-          </div>
-        </section>
+        <div className="  col-12  row d-flex justify-content-evenly   gap-2  ">
+          {promotion &&
+            promotion.map((item) => (
+              <div key={item._id} className=" col-5    promotion-card">
+                <h5 className=" mb-3 ">{item.name}</h5>
+                <p className="">{item.description}</p>
+              </div>
+            ))}
+        </div>
+        {/* </section> */}
       </div>
     </div>
   );
