@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <footer className="footer py-4 bg-body-secondary  ">
       <div className="container">
-        <div className="row">
-          <div className="col-md-3">
+        <div className="row m-0  p-0 justify-content-center  ">
+          <div className="col-md-3 col-6 ">
             <h5>About Us</h5>
             <ul className="list-unstyled  ">
               <li>
@@ -20,7 +20,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 col-6 ">
             <h5>Contact</h5>
             <ul className="list-unstyled  ">
               <li>
@@ -34,7 +34,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 col-6 ">
             <h5>Legal</h5>
             <ul className="list-unstyled  ">
               <li>
@@ -48,7 +48,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 col-6 ">
             <h5>Follow Us</h5>
             <ul className="list-unstyled  ">
               <li>

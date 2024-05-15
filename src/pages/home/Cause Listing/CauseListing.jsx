@@ -47,6 +47,7 @@ const CauseListing = ({ token }) => {
       if (response.data.success) {
         alert("Cause created");
         setShowModal(false);
+        fetchData()
       }
     } catch (error) {
       console.error("Error creating cause:", error);

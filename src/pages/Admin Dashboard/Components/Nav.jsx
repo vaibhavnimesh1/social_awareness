@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Nav.css";
 
 const Nav = ({ settoggle, toggle }) => {
-  const navigate = useNavigate();
+
 
   const handleLogout = () => {
     if (localStorage.getItem("adminData")) {
@@ -33,10 +33,10 @@ const Nav = ({ settoggle, toggle }) => {
               >
                 Profile
               </Link>
-              <ul className="dropdown-menu">
-                <li>
+              <ul className="dropdown-menu border-1 border-black  rounded-2  ">
+                {/* <li>
                   <Link className="dropdown-item">Setting</Link>
-                </li>
+                </li> */}
                 <li>
                   <Link className="dropdown-item" onClick={handleLogout}>
                     {/* <Link className="dropdown-item" > */}

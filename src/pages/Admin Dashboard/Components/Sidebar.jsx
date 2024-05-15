@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="bg-white p-2 h-100">
+    <div className="bg-white p-2 h-100   ">
       <div>
         <i className="bi bi-bootstrap-fill my-2"></i>
         <span className="fs-4 brand-name">Admin</span>

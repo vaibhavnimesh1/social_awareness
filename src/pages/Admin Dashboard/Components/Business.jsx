@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Business = ({ token }) => {
-  console.log("Token :", token);
+  // console.log("Token :", token);
 
   const BASE_URL = "http://137.184.199.153:4016";
   const [toggle, setToggle] = useState(false);
@@ -21,7 +21,7 @@ const Business = ({ token }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Craetw :", response);
+      // console.log("Craetw :", response);
 
       if (response?.data?.success) {
         alert("Business created");

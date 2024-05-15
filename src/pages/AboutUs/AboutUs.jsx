@@ -23,7 +23,7 @@ const AboutUs = () => {
         </div>
         <div className=" col-12 col-lg-6 img-box ">
           <img
-            src=" https://images.pexels.com/photos/18320116/pexels-photo-18320116/free-photo-of-wooden-hut-of-lifeguards.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+            src="https://images.pexels.com/photos/3859982/pexels-photo-3859982.jpeg?auto=compress&cs=tinysrgb&w=600"
             alt="image"
           />
         </div>

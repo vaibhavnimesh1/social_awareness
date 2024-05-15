@@ -29,14 +29,14 @@ const AdminDashboard = () => {
 
   return (
     <div className=" container-fluid  ">
-      <div className=" row w-100">
+      <div className=" row w-100 ">
         {toggle && (
-          <div className=" col-3">
+          <div className=" col-3 m-0  p-0 ">
             {" "}
-            <Sidebar />
+            <Sidebar  />
           </div>
         )}
-        <div className="h-100 col">
+        <div className="h-100 col m-0  p-0 mx-3  ">
           <Nav settoggle={settoggle} toggle={toggle} />
           <Routes>
             <Route path="/" element={<AdminHome token={token} />} />

@@ -3,15 +3,15 @@ import React from "react";
 const ContactUs = ({ token }) => {
   // console.log("constant :", token);
   return (
-    <div className="container p-5">
+    <div className="container p-lg-5 p-4 mb-3  ">
       <div className="row">
         <div className="col-md-6">
           <div className=" mt-5 ">
-            <h2>Contact</h2>
-            <span className=" fs-3">Phone :</span>
+            <h2 className=" fw-bolder ">Contact</h2>
+            <span className=" fs-3 fw-semibold ">Phone :</span>
             <p> 123456789</p>
-            <span className=" fs-3">Email:</span> <p> example@example.com</p>
-            <span className=" fs-3">Address:</span>
+            <span className=" fs-3 fw-semibold ">Email:</span> <p> example@example.com</p>
+            <span className=" fs-3 fw-semibold ">Address:</span>
             <p> 123, Street Name, City, Country</p>
           </div>
         </div>

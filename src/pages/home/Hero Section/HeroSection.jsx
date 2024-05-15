@@ -37,8 +37,16 @@ const HeroSection = () => {
               Lorem Ipsum.
             </p>
           </div>
-          <div className=" col-12 col-lg-6 ">
-            {isAuthenticated() ? null : <SignUp />}
+          <div className=" col-12 col-lg-6  ">
+            {isAuthenticated() ? (
+              <div className=" img-box">
+              <img
+                src=" https://images.pexels.com/photos/7655618/pexels-photo-7655618.jpeg?auto=compress&cs=tinysrgb&w=600"
+              />
+              </div>
+            ) : (
+              <SignUp />
+            )}
           </div>
         </div>
       </div>
