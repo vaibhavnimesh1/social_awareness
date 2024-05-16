@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./BusinessPromotion.css";
 import axios from "axios";
+import { BASE_URL } from "../../constant/constant";
 
 const BusinessPromotion = ({ token }) => {
   const [promotion, setpromotion] = useState([]);
-
-  const BASE_URL = "http://137.184.199.153:4016";
 
   const fetchBusiness = async () => {
     // console.log(token);
@@ -43,9 +42,17 @@ const BusinessPromotion = ({ token }) => {
                 className=" col-md-5  col-12    promotion-card"
               >
                 <div className=" d-flex business justify-content-evenly  align-items-center ">
-                  <a  href="#" className=" mb-3 business-1 fw-bold   ">{item.name} </a >{" "}
-                  <a  href="#" className=" mb-3 business-1 fw-bold  ">Promotions </a >
-                  <a  href="#" className=" mb-3  fw-bold ">visit website </a >
+                  <a href="#" className=" mb-3 business-1 fw-bold   ">
+                    {item.name}{" "}
+                  </a>
+                  <span className="busines-1">{""}</span>
+                  <a href="#" className=" mb-3 business-1 fw-bold  ">
+                    Promotions{" "}
+                  </a>
+                  <div className="busines-1">{""}</div>
+                  <a href="#" className=" mb-3  fw-bold ">
+                    visit website{" "}
+                  </a>
                 </div>
                 <p className="">{item.description}</p>
                 <p className=" w-100  text-end ">

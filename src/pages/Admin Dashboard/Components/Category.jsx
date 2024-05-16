@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const Category = ({ token }) => {
   const [toggle, setToggle] = useState(false);
   const [categories, setCategories] = useState([]);
   const [newCategoryName, setNewCategoryName] = useState("");
-  const BASE_URL = "http://137.184.199.153:4016";
 
   useEffect(() => {
     const fetchData = async () => {

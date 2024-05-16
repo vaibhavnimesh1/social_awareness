@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const Category = ({ token }) => {
   const [toggle, setToggle] = useState(false);
-  const BASE_URL = "http://137.184.199.153:4016";
+
   const [causes, setCauses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState({
@@ -25,7 +26,6 @@ const Category = ({ token }) => {
       console.error("Error fetching causes:", error);
     }
   };
-
 
   const handleCreateCause = async (e) => {
     e.preventDefault();

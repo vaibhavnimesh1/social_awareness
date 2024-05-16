@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import "./CauseDetailsPage.css";
+import { BASE_URL } from "../../constant/constant";
 
 const CauseDetailsPage = ({ token }) => {
   const { id } = useParams();
   const [userId, setUserId] = useState("");
   const [causes, setCauses] = useState([]);
-  const BASE_URL = "http://137.184.199.153:4016";
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));

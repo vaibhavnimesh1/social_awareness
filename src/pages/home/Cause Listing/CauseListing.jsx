@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CauseListing.css";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const CauseListing = ({ token }) => {
   const [causes, setCauses] = useState([]);
-  const BASE_URL = "http://137.184.199.153:4016";
+
   // console.log(causes);
 
   const [data, setData] = useState({
@@ -47,7 +48,7 @@ const CauseListing = ({ token }) => {
       if (response.data.success) {
         alert("Cause created");
         setShowModal(false);
-        fetchData()
+        fetchCauses();
       }
     } catch (error) {
       console.error("Error creating cause:", error);

@@ -20,9 +20,9 @@ const AdminDashboard = () => {
     const userData = JSON.parse(localStorage.getItem("adminData"));
 
     const t = userData.token;
-    const role = userData.doc.role;
+    // const role = userData.doc.role;
 
-    console.log(role);
+    // console.log(role);
     if (token == null && !token);
     setToken(t);
   }, []);

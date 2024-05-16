@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const Donation = ({ token }) => {
-  const BASE_URL = "http://137.184.199.153:4016";
   // const [toggle, setToggle] = useState(false);
   const [donation, setDonation] = useState([]);
   // const [categories, setCategories] = useState([]);
@@ -90,7 +90,7 @@ const Donation = ({ token }) => {
   // };
 
   // useEffect(() => {
-  
+
   //   fetchData();
   // }, [token]);
 

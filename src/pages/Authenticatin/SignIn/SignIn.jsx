@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "../style.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const BASE_URL = "http://137.184.199.153:4016";
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -53,13 +54,13 @@ const SignIn = () => {
           response?.data?.data?.doc?.role !== undefined
         ) {
           alert(response?.data?.message);
-          
+
           navigate("/admin");
           localStorage.setItem(
             "adminData",
             JSON.stringify(response?.data?.data)
           );
-          window.location.reload()
+          window.location.reload();
         }
       }
     } catch (error) {

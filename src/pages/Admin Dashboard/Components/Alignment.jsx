@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const Alignment = ({ token }) => {
-  const BASE_URL = "http://137.184.199.153:4016";
   const [toggle, setToggle] = useState(false);
   const [alignment, setAlignment] = useState([]);
   const [business, setbusiness] = useState([]);
@@ -118,81 +118,78 @@ const Alignment = ({ token }) => {
       {!alignment.length ? (
         <p>No Cause Found</p>
       ) : (
-    <div>
-       <div className=" d-flex  justify-content-end  mb-3 ">
-        <button
-        onClick={() => setToggle(!toggle)}
-        className="btn btn-success w-auto "
-      >
-        Create Alignwith
-      </button>
-       </div>
-
-      {toggle && (
-        <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
-          <form onSubmit={handleCreatePromotion}>
-            <div className="dropdown   border-1 border-black  mb-3   w-100 ">
-              <select
-                className="form-select"
-                name="business"
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Business</option>
-                {business &&
-                  business?.map((business) => (
-                    <option key={business._id} value={business._id}>
-                      {business.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div className="dropdown   border-1 border-black  mb-3   w-100 ">
-              <select
-                className="form-select"
-                name="cause"
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Cause</option>
-                {causes &&
-                  causes?.map((cause) => (
-                    <option key={cause._id} value={cause._id}>
-                      {cause.title}
-                    </option>
-                  ))}
-              </select>
-            </div>
-
-            <button type="submit" className="btn btn-success w-100   ">
-              Submit
+        <div>
+          <div className=" d-flex  justify-content-end  mb-3 ">
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="btn btn-success w-auto "
+            >
+              Create Alignwith
             </button>
-          </form>
-        </div>
-      )}
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Business</th>
-              <th scope="col">Cause</th>
-            </tr>
-          </thead>
-          <tbody>
-            {alignment.map((cause, index) => (
-              <tr key={cause._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{cause.businessId.name}</td>
-                <td>{cause.causeId.title}</td>
+          </div>
+
+          {toggle && (
+            <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
+              <form onSubmit={handleCreatePromotion}>
+                <div className="dropdown   border-1 border-black  mb-3   w-100 ">
+                  <select
+                    className="form-select"
+                    name="business"
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Business</option>
+                    {business &&
+                      business?.map((business) => (
+                        <option key={business._id} value={business._id}>
+                          {business.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div className="dropdown   border-1 border-black  mb-3   w-100 ">
+                  <select
+                    className="form-select"
+                    name="cause"
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Cause</option>
+                    {causes &&
+                      causes?.map((cause) => (
+                        <option key={cause._id} value={cause._id}>
+                          {cause.title}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
+                <button type="submit" className="btn btn-success w-100   ">
+                  Submit
+                </button>
+              </form>
+            </div>
+          )}
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Business</th>
+                <th scope="col">Cause</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {alignment.map((cause, index) => (
+                <tr key={cause._id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{cause.businessId.name}</td>
+                  <td>{cause.causeId.title}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
       )}
-
-  
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const CreatePromotion = ({ token }) => {
-  const BASE_URL = "http://137.184.199.153:4016";
   const [toggle, setToggle] = useState(false);
   const [causes, setCauses] = useState([]);
   const [business, setbusiness] = useState([]);
@@ -97,95 +97,93 @@ const CreatePromotion = ({ token }) => {
       {!causes.length ? (
         <p>No Cause Found</p>
       ) : (
-
         <div>
-        <div className=" d-flex  justify-content-end  mb-3 ">    <button
-        onClick={() => setToggle(!toggle)}
-        className="btn btn-success w-auto "
-      >
-        Create Promotion
-      </button></div>
-
-    
-
-      {toggle && (
-        <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
-          <form onSubmit={handleCreatePromotion}>
-            <div className="mb-3">
-              <label htmlFor="title" className="form-label">
-                Title
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="title"
-                value={data.title}
-                onChange={handleChange}
-                required
-                placeholder="Write title"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">
-                Description
-              </label>
-              <textarea
-                className="form-control"
-                name="description"
-                value={data.description}
-                onChange={handleChange}
-                required
-                placeholder="Write description"
-              />
-            </div>
-
-            <div className="dropdown   border-1 border-black  mb-3   w-100 ">
-              <select
-                className="form-select"
-                name="business"
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Business</option>
-                {business &&
-                  business?.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-
-            <button type="submit" className="btn btn-success w-100   ">
-              Submit
+          <div className=" d-flex  justify-content-end  mb-3 ">
+            {" "}
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="btn btn-success w-auto "
+            >
+              Create Promotion
             </button>
-          </form>
-        </div>
-      )}
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Business</th>
-            </tr>
-          </thead>
-          <tbody>
-            {causes.map((cause, index) => (
-              <tr key={cause._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{cause.title}</td>
-                <td>{cause.description}</td>
-                <td>{cause.businessId.name}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
-      )}
+          </div>
 
-     
+          {toggle && (
+            <div className="input mb-3 mt-3 border-1  border-black  p-2 ">
+              <form onSubmit={handleCreatePromotion}>
+                <div className="mb-3">
+                  <label htmlFor="title" className="form-label">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="title"
+                    value={data.title}
+                    onChange={handleChange}
+                    required
+                    placeholder="Write title"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="description" className="form-label">
+                    Description
+                  </label>
+                  <textarea
+                    className="form-control"
+                    name="description"
+                    value={data.description}
+                    onChange={handleChange}
+                    required
+                    placeholder="Write description"
+                  />
+                </div>
+
+                <div className="dropdown   border-1 border-black  mb-3   w-100 ">
+                  <select
+                    className="form-select"
+                    name="business"
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Business</option>
+                    {business &&
+                      business?.map((category) => (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
+                <button type="submit" className="btn btn-success w-100   ">
+                  Submit
+                </button>
+              </form>
+            </div>
+          )}
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Business</th>
+              </tr>
+            </thead>
+            <tbody>
+              {causes.map((cause, index) => (
+                <tr key={cause._id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{cause.title}</td>
+                  <td>{cause.description}</td>
+                  <td>{cause.businessId.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

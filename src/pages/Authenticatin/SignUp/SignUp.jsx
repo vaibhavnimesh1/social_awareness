@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../../../constant/constant";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const BASE_URL = "http://137.184.199.153:4016";
-  // const BASE_URL = "http://137.184.199.153:4016";
+
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -40,7 +40,7 @@ const SignUp = () => {
         return;
       } else {
         alert(data?.message);
-        navigate("/profile");
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error ", error);
